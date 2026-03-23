@@ -58,6 +58,8 @@ function createTeam(childName: string, adultName: string): Team {
       math: 0,
       physical: 0,
       culture: 0,
+      football: 0,
+      landmarks: 0,
     },
     jokerUsed: {
       religion: false,
@@ -65,6 +67,8 @@ function createTeam(childName: string, adultName: string): Team {
       math: false,
       physical: false,
       culture: false,
+      football: false,
+      landmarks: false,
     },
   };
 }

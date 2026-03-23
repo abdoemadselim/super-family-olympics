@@ -1,4 +1,4 @@
-export type CategoryId = "religion" | "science" | "math" | "physical" | "culture";
+export type CategoryId = "religion" | "science" | "math" | "physical" | "culture" | "football" | "landmarks";
 
 export interface Question {
   id: string;
