@@ -4,6 +4,8 @@ import scienceData from "./questions/science.json";
 import mathData from "./questions/math.json";
 import physicalData from "./questions/physical.json";
 import cultureData from "./questions/culture.json";
+import footballData from "./questions/football.json";
+import landmarksData from "./questions/landmarks.json";
 
 export const CATEGORIES: Category[] = [
   {
@@ -45,5 +47,21 @@ export const CATEGORIES: Category[] = [
     color: "text-red-700",
     bgColor: "bg-red-50 border-red-200",
     questions: cultureData.questions as Category["questions"],
+  },
+  {
+    id: "football",
+    name: "كرة القدم",
+    icon: "⚽",
+    color: "text-green-700",
+    bgColor: "bg-green-50 border-green-200",
+    questions: footballData.questions as Category["questions"],
+  },
+  {
+    id: "landmarks",
+    name: "عواصم ومعالم",
+    icon: "🗺️",
+    color: "text-yellow-700",
+    bgColor: "bg-yellow-50 border-yellow-200",
+    questions: landmarksData.questions as Category["questions"],
   },
 ];
