@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
+import { Marhey, Cairo } from "next/font/google";
 import "./globals.css";
+
+const marhey = Marhey({
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-marhey",
+});
+
+const cairo = Cairo({
+  subsets: ["arabic"],
+  weight: ["400", "600", "700", "800", "900"],
+  variable: "--font-cairo",
+});
 
 export const metadata: Metadata = {
   title: "سوبر أولمبياد العائلة",
@@ -12,13 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className="h-full">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="ar" dir="rtl" className={`h-full ${marhey.variable} ${cairo.variable}`}>
       <body className="min-h-full">{children}</body>
     </html>
   );

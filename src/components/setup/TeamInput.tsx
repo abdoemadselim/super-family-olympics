@@ -4,15 +4,17 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useGameStore } from "@/store/gameStore";
-import { Plus } from "lucide-react";
+import { useSound } from "@/hooks/useSound";
 
 export function TeamInput() {
   const [childName, setChildName] = useState("");
   const [adultName, setAdultName] = useState("");
   const addTeam = useGameStore((s) => s.addTeam);
+  const sound = useSound();
 
   const handleAdd = () => {
     if (!childName.trim() || !adultName.trim()) return;
+    sound.whoosh();
     addTeam(childName.trim(), adultName.trim());
     setChildName("");
     setAdultName("");
@@ -23,39 +25,41 @@ export function TeamInput() {
   };
 
   return (
-    <div className="bg-white rounded-3xl shadow-md p-5 space-y-4 border border-amber-100">
-      <div className="flex gap-3 items-end">
-        <div className="flex-1 space-y-3">
-          <div>
-            <Input
-              value={childName}
-              onChange={(e) => setChildName(e.target.value)}
-              onKeyDown={handleKey}
-              placeholder="اسم البطل الصغير..."
-              className="text-right text-base rounded-2xl h-12 bg-amber-50/50 placeholder:text-slate-400"
-              style={{ borderColor: "hsl(45 30% 85%)", fontFamily: "Cairo, sans-serif" }}
-              dir="rtl"
-            />
-          </div>
-          <div>
-            <Input
-              value={adultName}
-              onChange={(e) => setAdultName(e.target.value)}
-              onKeyDown={handleKey}
-              placeholder="اسم المساعد الكبير..."
-              className="text-right text-base rounded-2xl h-12 bg-amber-50/50 placeholder:text-slate-400"
-              style={{ borderColor: "hsl(45 30% 85%)", fontFamily: "Cairo, sans-serif" }}
-              dir="rtl"
-            />
-          </div>
+    <div className="bg-white rounded-3xl shadow-md p-5 space-y-4 border border-sky-100">
+      <div className="space-y-3">
+        <div>
+          <label className="flex items-center gap-1.5 text-sm font-bold mb-1.5" style={{ color: "#e74c8b" }}>
+            <span>🧒</span> اسم البطل الصغير
+          </label>
+          <Input
+            value={childName}
+            onChange={(e) => setChildName(e.target.value)}
+            onKeyDown={handleKey}
+            className="text-right text-xl rounded-2xl h-14 bg-sky-50/50 text-black"
+            style={{ borderColor: "hsl(210 30% 88%)" }}
+            dir="rtl"
+          />
+        </div>
+        <div>
+          <label className="flex items-center gap-1.5 text-sm font-bold mb-1.5" style={{ color: "#0dccf2" }}>
+            <span>👨</span> اسم المساعد الكبير
+          </label>
+          <Input
+            value={adultName}
+            onChange={(e) => setAdultName(e.target.value)}
+            onKeyDown={handleKey}
+            className="text-right text-xl rounded-2xl h-14 bg-sky-50/50 text-black"
+            style={{ borderColor: "hsl(210 30% 88%)" }}
+            dir="rtl"
+          />
         </div>
         <Button
           onClick={handleAdd}
           disabled={!childName.trim() || !adultName.trim()}
-          className="w-12 h-12 rounded-full text-white font-bold shrink-0 shadow-md transition-all disabled:opacity-40"
-          style={{ background: "linear-gradient(135deg, hsl(262 83% 58%), hsl(190 90% 50%))" }}
+          className="w-full h-12 rounded-2xl text-white font-bold shadow-md transition-all active:scale-95 disabled:opacity-40 text-base"
+          style={{ background: "linear-gradient(135deg, #f99e1f, #f97316)" }}
         >
-          <Plus className="w-5 h-5" />
+          ➕ أضف فريق
         </Button>
       </div>
     </div>

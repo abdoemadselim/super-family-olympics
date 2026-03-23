@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useGameStore } from "@/store/gameStore";
+import { useSound } from "@/hooks/useSound";
 import { QuestionCard } from "./QuestionCard";
 import { GameHeader } from "./GameHeader";
 import { JokerButton } from "./JokerButton";
@@ -13,6 +14,7 @@ export function GameRound() {
   const jokerActiveThisRound = useGameStore((s) => s.jokerActiveThisRound);
   const scoreAnswer = useGameStore((s) => s.scoreAnswer);
   const nextRound = useGameStore((s) => s.nextRound);
+  const sound = useSound();
 
   const [childScored, setChildScored] = useState(false);
   const [adultScored, setAdultScored] = useState(false);
@@ -28,6 +30,7 @@ export function GameRound() {
   };
 
   const handleNext = () => {
+    sound.whoosh();
     setChildScored(false);
     setAdultScored(false);
     nextRound();
@@ -68,10 +71,9 @@ export function GameRound() {
         className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-lg shadow-sm transition-all active:scale-95"
         style={{
           background: canProceed
-            ? "linear-gradient(135deg, hsl(262 83% 58%), hsl(190 90% 50%))"
-            : "hsl(45 20% 92%)",
+            ? "linear-gradient(135deg, #7c3bed, #0dccf2, #f99e1f)"
+            : "hsl(210 20% 92%)",
           color: canProceed ? "white" : "hsl(240 10% 65%)",
-          fontFamily: "Cairo, sans-serif",
           cursor: canProceed ? "pointer" : "not-allowed",
         }}
         dir="rtl"

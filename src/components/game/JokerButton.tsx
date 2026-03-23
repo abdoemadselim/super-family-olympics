@@ -1,8 +1,10 @@
 "use client";
 
 import { useGameStore } from "@/store/gameStore";
+import { useSound } from "@/hooks/useSound";
 
 export function JokerButton() {
+  const sound = useSound();
   const teams = useGameStore((s) => s.teams);
   const currentTeamIndex = useGameStore((s) => s.currentTeamIndex);
   const currentCategoryId = useGameStore((s) => s.currentCategoryId);
@@ -20,8 +22,8 @@ export function JokerButton() {
         className="text-center text-sm py-2.5 px-4 rounded-2xl font-bold border"
         style={
           jokerActiveThisRound
-            ? { background: "hsl(35 95% 95%)", color: "hsl(35 95% 40%)", borderColor: "hsl(35 95% 80%)", fontFamily: "Cairo, sans-serif" }
-            : { background: "hsl(45 20% 94%)", color: "hsl(240 10% 65%)", borderColor: "hsl(45 30% 85%)", fontFamily: "Cairo, sans-serif" }
+            ? { background: "hsl(35 95% 95%)", color: "hsl(35 95% 40%)", borderColor: "hsl(35 95% 80%)" }
+            : { background: "hsl(210 20% 94%)", color: "hsl(220 10% 65%)", borderColor: "hsl(210 30% 88%)" }
         }
         dir="rtl"
       >
@@ -32,11 +34,10 @@ export function JokerButton() {
 
   return (
     <button
-      onClick={activateJoker}
+      onClick={() => { sound.joker(); activateJoker(); }}
       className="w-full text-white font-bold py-3.5 rounded-2xl shadow-sm transition-all active:scale-95 flex items-center justify-center gap-2 hover:opacity-90"
       style={{
         background: "linear-gradient(135deg, hsl(35 95% 55%), hsl(35 95% 65%))",
-        fontFamily: "Cairo, sans-serif",
       }}
       dir="rtl"
     >
