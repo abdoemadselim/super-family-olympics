@@ -24,7 +24,7 @@ export interface Team {
   jokerUsed: Record<CategoryId, boolean>;
 }
 
-export type GamePhase = "setup" | "menu" | "game" | "category-result";
+export type GamePhase = "setup" | "menu" | "game" | "category-result" | "leaderboard";
 
 export interface RoundState {
   teamId: string;

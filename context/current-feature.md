@@ -6,24 +6,25 @@ In Progress
 
 ## Goals
 
-Add fun, childish sound effects using the Web Audio API (no audio files needed):
+Add a dedicated full-screen leaderboard accessible from the main menu:
 
-- **Correct answer** - Happy ascending arpeggio (C-E-G)
-- **Wrong answer** - Descending sad/funny notes
-- **Joker activated** - Magical sparkle sweep
-- **Timer start** - Short click
-- **Timer warning (≤10s)** - Urgent tick on each second
-- **Timer end** - Buzzer/alarm sound
-- **Category complete** - Triumphant fanfare
-- **Next round / team added** - Whoosh/pop sounds
-- **Game start** - Rising excitement sweep
+- New game phase `"leaderboard"`
+- Full-screen leaderboard showing:
+  - Teams ranked by total score
+  - Per-category score breakdown for each team
+  - Medals for top 3
+  - Visual score bars per category
+- Button on MenuScreen to navigate to leaderboard
+- Back button to return to menu
 
 ## Notes
 
-- Using Web Audio API oscillators — no external audio files
-- Create `src/hooks/useSound.ts` custom hook
-- Wire up sounds in: QuestionCard, Timer, JokerButton, GameRound, CategoryResult, SetupScreen
+- New component: `src/components/screens/LeaderboardScreen.tsx`
+- Add `"leaderboard"` to `GamePhase` type
+- Add `showLeaderboard` / `hideLeaderboard` actions to game store
+- Use existing theme/styling patterns (gradients, rounded cards, Arabic RTL)
 
 ## History
 
 <!-- Keep this updated. Earliest to latest -->
+- Sound effects feature (completed)
