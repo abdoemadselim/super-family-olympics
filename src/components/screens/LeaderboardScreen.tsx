@@ -20,6 +20,8 @@ const CATEGORY_COLORS: Record<CategoryId, string> = {
   math: "hsl(262 60% 55%)",
   physical: "hsl(35 95% 55%)",
   culture: "hsl(0 80% 60%)",
+  football: "hsl(142 71% 45%)",
+  landmarks: "hsl(45 93% 47%)",
 };
 
 export function LeaderboardScreen() {
