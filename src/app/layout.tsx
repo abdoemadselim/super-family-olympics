@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Marhey, Cairo } from "next/font/google";
+import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import "./globals.css";
 
 const marhey = Marhey({
@@ -17,6 +18,15 @@ const cairo = Cairo({
 export const metadata: Metadata = {
   title: "سوبر أولمبياد العائلة",
   description: "لعبة مسابقات عائلية تفاعلية",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "أولمبياد العائلة",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#3aaa9e",
 };
 
 export default function RootLayout({
@@ -26,7 +36,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" className={`h-full ${marhey.variable} ${cairo.variable}`}>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <ServiceWorkerRegistration />
+        {children}
+      </body>
     </html>
   );
 }
