@@ -18,6 +18,10 @@ const cairo = Cairo({
 export const metadata: Metadata = {
   title: "سوبر أولمبياد العائلة",
   description: "لعبة مسابقات عائلية تفاعلية",
+  icons: {
+    icon: "/icons/icon-192.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
