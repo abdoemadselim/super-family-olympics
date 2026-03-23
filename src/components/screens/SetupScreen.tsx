@@ -9,6 +9,7 @@ export function SetupScreen() {
   const teams = useGameStore((s) => s.teams);
   const startGame = useGameStore((s) => s.startGame);
   const resetGame = useGameStore((s) => s.resetGame);
+  const showLeaderboard = useGameStore((s) => s.showLeaderboard);
   const sound = useSound();
 
   const canStart = teams.length >= 2;
@@ -58,6 +59,16 @@ export function SetupScreen() {
             إعادة ضبط
           </button>
         )}
+
+        <button
+          onClick={showLeaderboard}
+          className="w-full text-white font-bold py-3.5 rounded-2xl shadow-md text-base hover:scale-105 active:scale-95 transition-all"
+          style={{
+            background: "linear-gradient(135deg, #7c3bed, #0dccf2, #f99e1f)",
+          }}
+        >
+          🏆 لوحة المتصدرين
+        </button>
       </div>
     </div>
   );

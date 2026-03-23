@@ -32,6 +32,8 @@ interface GameStore {
   scoreAnswer: (playerType: "child" | "adult", correct: boolean) => void;
   nextRound: () => void;
   getRemainingQuestions: (categoryId: CategoryId) => number;
+  showLeaderboard: () => void;
+  hideLeaderboard: () => void;
 }
 
 function initQuestionBank(): QuestionBank {
@@ -192,9 +194,17 @@ export const useGameStore = create<GameStore>((set, get) => ({
     });
   },
 
+  showLeaderboard: () => {
+    set({ phase: "leaderboard" });
+  },
+
+  hideLeaderboard: () => {
+    set({ phase: "menu" });
+  },
+
   getRemainingQuestions: (categoryId) => {
     const { questionBank } = get();
     const pool = questionBank[categoryId];
-    return Math.min(pool.child.length, pool.adult.length);
+    return pool.child.length + pool.adult.length;
   },
 }));

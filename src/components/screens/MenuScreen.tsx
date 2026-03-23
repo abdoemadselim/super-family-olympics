@@ -6,7 +6,6 @@ import { CategoryGrid } from "@/components/menu/CategoryGrid";
 
 export function MenuScreen() {
   const resetGame = useGameStore((s) => s.resetGame);
-
   return (
     <div className="space-y-6" dir="rtl">
       {/* Title */}
