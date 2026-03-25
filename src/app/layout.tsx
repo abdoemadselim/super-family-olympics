@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Marhey, Cairo } from "next/font/google";
+import { Playpen_Sans_Arabic, Cairo } from "next/font/google";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import "./globals.css";
 
-const marhey = Marhey({
+const playpenSansArabic = Playpen_Sans_Arabic({
   subsets: ["arabic"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-marhey",
+  variable: "--font-playpen",
 });
 
 const cairo = Cairo({
@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className={`h-full ${marhey.variable} ${cairo.variable}`}>
+    <html lang="ar" dir="rtl" className={`h-full ${playpenSansArabic.variable} ${cairo.variable}`}>
       <body className="min-h-full">
         <ServiceWorkerRegistration />
         {children}

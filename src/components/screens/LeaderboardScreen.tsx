@@ -15,13 +15,14 @@ const SCORE_GRADIENTS = [
 const MEDAL = ["🥇", "🥈", "🥉"];
 
 const CATEGORY_COLORS: Record<CategoryId, string> = {
-  religion: "hsl(145 65% 42%)",
   science: "hsl(199 89% 48%)",
   math: "hsl(262 60% 55%)",
   physical: "hsl(35 95% 55%)",
-  culture: "hsl(0 80% 60%)",
   football: "hsl(142 71% 45%)",
-  landmarks: "hsl(45 93% 47%)",
+  arabic: "hsl(174 60% 45%)",
+  geography: "hsl(45 93% 47%)",
+  synonyms: "hsl(330 70% 55%)",
+  riddles: "hsl(25 95% 55%)",
 };
 
 export function LeaderboardScreen() {

@@ -126,7 +126,7 @@
     background: linear-gradient(135deg, #7c3bed, #0dccf2, #f99e1f);
     background-attachment: fixed;
     min-height: 100vh;
-    font-family: var(--font-marhey), var(--font-cairo), system-ui, sans-serif;
+    font-family: var(--font-playpen), var(--font-cairo), system-ui, sans-serif;
   }
   html {
     @apply font-sans;

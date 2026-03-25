@@ -1,21 +1,14 @@
 import { Category } from "@/types/game";
-import religionData from "./questions/religion.json";
 import scienceData from "./questions/science.json";
 import mathData from "./questions/math.json";
 import physicalData from "./questions/physical.json";
-import cultureData from "./questions/culture.json";
 import footballData from "./questions/football.json";
-import landmarksData from "./questions/landmarks.json";
+import arabicData from "./questions/arabic.json";
+import geographyData from "./questions/geography.json";
+import synonymsData from "./questions/synonyms.json";
+import riddlesData from "./questions/riddles.json";
 
 export const CATEGORIES: Category[] = [
-  {
-    id: "religion",
-    name: "الدين",
-    icon: "🌙",
-    color: "text-emerald-700",
-    bgColor: "bg-emerald-50 border-emerald-200",
-    questions: religionData.questions as Category["questions"],
-  },
   {
     id: "science",
     name: "العلوم",
@@ -41,14 +34,6 @@ export const CATEGORIES: Category[] = [
     questions: physicalData.questions as Category["questions"],
   },
   {
-    id: "culture",
-    name: "ثقافة عامة",
-    icon: "🌍",
-    color: "text-red-700",
-    bgColor: "bg-red-50 border-red-200",
-    questions: cultureData.questions as Category["questions"],
-  },
-  {
     id: "football",
     name: "كرة القدم",
     icon: "⚽",
@@ -57,11 +42,35 @@ export const CATEGORIES: Category[] = [
     questions: footballData.questions as Category["questions"],
   },
   {
-    id: "landmarks",
-    name: "عواصم ومعالم",
+    id: "arabic",
+    name: "اللغة العربية",
+    icon: "📖",
+    color: "text-teal-700",
+    bgColor: "bg-teal-50 border-teal-200",
+    questions: arabicData.questions as Category["questions"],
+  },
+  {
+    id: "geography",
+    name: "جغرافيا وسياحة",
     icon: "🗺️",
     color: "text-yellow-700",
     bgColor: "bg-yellow-50 border-yellow-200",
-    questions: landmarksData.questions as Category["questions"],
+    questions: geographyData.questions as Category["questions"],
+  },
+  {
+    id: "synonyms",
+    name: "المرادفات",
+    icon: "📝",
+    color: "text-pink-700",
+    bgColor: "bg-pink-50 border-pink-200",
+    questions: synonymsData.questions as Category["questions"],
+  },
+  {
+    id: "riddles",
+    name: "أمثال وألغاز",
+    icon: "🧩",
+    color: "text-amber-700",
+    bgColor: "bg-amber-50 border-amber-200",
+    questions: riddlesData.questions as Category["questions"],
   },
 ];

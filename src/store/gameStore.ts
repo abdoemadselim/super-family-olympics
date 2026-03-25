@@ -34,6 +34,8 @@ interface GameStore {
   getRemainingQuestions: (categoryId: CategoryId) => number;
   showLeaderboard: () => void;
   hideLeaderboard: () => void;
+  backToSetup: () => void;
+  backToMenu: () => void;
 }
 
 function initQuestionBank(): QuestionBank {
@@ -53,22 +55,24 @@ function createTeam(childName: string, adultName: string): Team {
     childName,
     adultName,
     scores: {
-      religion: 0,
       science: 0,
       math: 0,
       physical: 0,
-      culture: 0,
       football: 0,
-      landmarks: 0,
+      arabic: 0,
+      geography: 0,
+      synonyms: 0,
+      riddles: 0,
     },
     jokerUsed: {
-      religion: false,
       science: false,
       math: false,
       physical: false,
-      culture: false,
       football: false,
-      landmarks: false,
+      arabic: false,
+      geography: false,
+      synonyms: false,
+      riddles: false,
     },
   };
 }
@@ -204,6 +208,21 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   hideLeaderboard: () => {
     set({ phase: "menu" });
+  },
+
+  backToSetup: () => {
+    set({ phase: "setup" });
+  },
+
+  backToMenu: () => {
+    set({
+      phase: "menu",
+      currentCategoryId: null,
+      currentRoundIndex: 0,
+      childQuestion: null,
+      adultQuestion: null,
+      jokerActiveThisRound: false,
+    });
   },
 
   getRemainingQuestions: (categoryId) => {
