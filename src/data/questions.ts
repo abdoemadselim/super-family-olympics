@@ -44,7 +44,7 @@ export const CATEGORIES: Category[] = [
   {
     id: "arabic",
     name: "اللغة العربية",
-    icon: "📖",
+    icon: "✍️",
     color: "text-teal-700",
     bgColor: "bg-teal-50 border-teal-200",
     questions: arabicData.questions as Category["questions"],
@@ -60,7 +60,7 @@ export const CATEGORIES: Category[] = [
   {
     id: "synonyms",
     name: "المرادفات",
-    icon: "📝",
+    icon: "🔤",
     color: "text-pink-700",
     bgColor: "bg-pink-50 border-pink-200",
     questions: synonymsData.questions as Category["questions"],
@@ -68,7 +68,7 @@ export const CATEGORIES: Category[] = [
   {
     id: "riddles",
     name: "أمثال وألغاز",
-    icon: "🧩",
+    icon: "💡",
     color: "text-amber-700",
     bgColor: "bg-amber-50 border-amber-200",
     questions: riddlesData.questions as Category["questions"],

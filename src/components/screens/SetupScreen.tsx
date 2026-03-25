@@ -22,7 +22,7 @@ export function SetupScreen() {
     <div className="space-y-6" dir="rtl">
       {/* Title */}
       <div className="text-center space-y-2 pt-6">
-        <h1 className="text-5xl font-black text-white drop-shadow-md">
+        <h1 className="text-5xl font-black text-white drop-shadow-md leading-relaxed">
           🏆 سوبر أولمبياد العائلة 🎮
         </h1>
         <p className="text-white/80 text-base">
