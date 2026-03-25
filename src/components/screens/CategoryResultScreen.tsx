@@ -7,5 +7,5 @@ export function CategoryResultScreen() {
     <div dir="rtl">
       <CategoryResult />
     </div>
-  );
+  )
 }
