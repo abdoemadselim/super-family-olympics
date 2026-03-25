@@ -23,6 +23,7 @@ const CATEGORY_COLORS: Record<CategoryId, string> = {
   geography: "hsl(45 93% 47%)",
   synonyms: "hsl(330 70% 55%)",
   riddles: "hsl(25 95% 55%)",
+  religion: "hsl(152 60% 40%)",
 };
 
 export function LeaderboardScreen() {

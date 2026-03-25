@@ -63,6 +63,7 @@ function createTeam(childName: string, adultName: string): Team {
       geography: 0,
       synonyms: 0,
       riddles: 0,
+      religion: 0,
     },
     jokerUsed: {
       science: false,
@@ -73,6 +74,7 @@ function createTeam(childName: string, adultName: string): Team {
       geography: false,
       synonyms: false,
       riddles: false,
+      religion: false,
     },
   };
 }
@@ -111,7 +113,6 @@ export const useGameStore = create<GameStore>((set, get) => ({
   resetGame: () => {
     set({
       phase: "setup",
-      teams: [],
       currentTeamIndex: 0,
       currentCategoryId: null,
       currentRoundIndex: 0,
@@ -124,7 +125,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   selectCategory: (categoryId) => {
     const { questionBank } = get();
-    const childQ = drawQuestion(questionBank, categoryId, "child");
+    const category = CATEGORIES.find((c) => c.id === categoryId);
+    const childQ = category?.adultOnly ? null : drawQuestion(questionBank, categoryId, "child");
     const adultQ = drawQuestion(questionBank, categoryId, "adult");
     set({
       phase: "game",
@@ -190,7 +192,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
       nextRoundIndex = currentRoundIndex;
     }
 
-    const childQ = drawQuestion(questionBank!, currentCategoryId!, "child");
+    const category = CATEGORIES.find((c) => c.id === currentCategoryId);
+    const childQ = category?.adultOnly ? null : drawQuestion(questionBank!, currentCategoryId!, "child");
     const adultQ = drawQuestion(questionBank!, currentCategoryId!, "adult");
 
     set({
@@ -215,8 +218,17 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 
   backToMenu: () => {
+    const { teams, currentCategoryId } = get();
+    const resetTeams = currentCategoryId
+      ? teams.map((t) => ({
+          ...t,
+          scores: { ...t.scores, [currentCategoryId]: 0 },
+          jokerUsed: { ...t.jokerUsed, [currentCategoryId]: false },
+        }))
+      : teams;
     set({
       phase: "menu",
+      teams: resetTeams,
       currentCategoryId: null,
       currentRoundIndex: 0,
       childQuestion: null,

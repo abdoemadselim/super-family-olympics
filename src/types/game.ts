@@ -1,4 +1,4 @@
-export type CategoryId = "science" | "math" | "physical" | "football" | "arabic" | "geography" | "synonyms" | "riddles";
+export type CategoryId = "science" | "math" | "physical" | "football" | "arabic" | "geography" | "synonyms" | "riddles" | "religion";
 
 export interface Question {
   id: string;
@@ -14,6 +14,7 @@ export interface Category {
   color: string;
   bgColor: string;
   questions: Question[];
+  adultOnly?: boolean;
 }
 
 export interface Team {

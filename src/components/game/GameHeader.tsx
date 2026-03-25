@@ -2,7 +2,7 @@
 
 import { useGameStore } from "@/store/gameStore";
 import { CATEGORIES } from "@/data/questions";
-import { X } from "lucide-react";
+import { ArrowRight, Home } from "lucide-react";
 
 const SCORE_GRADIENTS = [
   "linear-gradient(135deg, hsl(199 89% 48%), hsl(174 60% 45%))",
@@ -19,6 +19,7 @@ export function GameHeader() {
   const currentCategoryId = useGameStore((s) => s.currentCategoryId);
 
   const resetGame = useGameStore((s) => s.resetGame);
+  const backToMenu = useGameStore((s) => s.backToMenu);
   const currentTeam = teams[currentTeamIndex];
   const category = CATEGORIES.find((c) => c.id === currentCategoryId);
   const totalScore = currentTeam
@@ -27,14 +28,21 @@ export function GameHeader() {
 
   return (
     <div className="space-y-3" dir="rtl">
-      {/* End game button */}
-      <div className="flex justify-end">
+      {/* Navigation buttons */}
+      <div className="flex justify-between">
+        <button
+          onClick={backToMenu}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/20 text-white text-sm font-bold transition-all hover:scale-105 active:scale-95 hover:bg-white/30 backdrop-blur-sm"
+        >
+          <ArrowRight className="w-4 h-4" />
+          رجوع
+        </button>
         <button
           onClick={resetGame}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white/20 text-white text-base font-bold transition-all hover:scale-105 active:scale-95 hover:bg-white/30 backdrop-blur-sm"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/20 text-white text-sm font-bold transition-all hover:scale-105 active:scale-95 hover:bg-white/30 backdrop-blur-sm"
         >
-          <X className="w-5 h-5" />
-          إنهاء اللعبة
+          <Home className="w-4 h-4" />
+          الرئيسية
         </button>
       </div>
 

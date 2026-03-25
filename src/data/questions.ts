@@ -7,6 +7,7 @@ import arabicData from "./questions/arabic.json";
 import geographyData from "./questions/geography.json";
 import synonymsData from "./questions/synonyms.json";
 import riddlesData from "./questions/riddles.json";
+import religionData from "./questions/religion.json";
 
 export const CATEGORIES: Category[] = [
   {
@@ -40,6 +41,7 @@ export const CATEGORIES: Category[] = [
     color: "text-green-700",
     bgColor: "bg-green-50 border-green-200",
     questions: footballData.questions as Category["questions"],
+    adultOnly: true,
   },
   {
     id: "arabic",
@@ -56,6 +58,7 @@ export const CATEGORIES: Category[] = [
     color: "text-yellow-700",
     bgColor: "bg-yellow-50 border-yellow-200",
     questions: geographyData.questions as Category["questions"],
+    adultOnly: true,
   },
   {
     id: "synonyms",
@@ -72,5 +75,13 @@ export const CATEGORIES: Category[] = [
     color: "text-amber-700",
     bgColor: "bg-amber-50 border-amber-200",
     questions: riddlesData.questions as Category["questions"],
+  },
+  {
+    id: "religion",
+    name: "الدين",
+    icon: "🕌",
+    color: "text-emerald-700",
+    bgColor: "bg-emerald-50 border-emerald-200",
+    questions: religionData.questions as Category["questions"],
   },
 ];

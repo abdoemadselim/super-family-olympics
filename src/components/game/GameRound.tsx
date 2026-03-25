@@ -36,7 +36,7 @@ export function GameRound() {
     nextRound();
   };
 
-  const canProceed = childScored && adultScored;
+  const canProceed = (!childQuestion || childScored) && adultScored;
 
   return (
     <div className="space-y-4">
@@ -79,7 +79,7 @@ export function GameRound() {
         dir="rtl"
       >
         <ArrowLeft className="w-5 h-5" />
-        {canProceed ? "الفريق التالي / الجولة التالية" : "أجب على كلا السؤالين أولاً"}
+        {canProceed ? "الفريق التالي / الجولة التالية" : childQuestion ? "أجب على كلا السؤالين أولاً" : "أجب على السؤال أولاً"}
       </button>
     </div>
   );
