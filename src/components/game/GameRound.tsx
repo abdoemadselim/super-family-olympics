@@ -45,6 +45,7 @@ export function GameRound() {
 
       {childQuestion && (
         <QuestionCard
+          key={childQuestion.id}
           question={childQuestion}
           label="🧒 سؤال البطل الصغير"
           isKid={true}
@@ -56,6 +57,7 @@ export function GameRound() {
 
       {adultQuestion && (
         <QuestionCard
+          key={adultQuestion.id}
           question={adultQuestion}
           label="👨 سؤال المساعد الكبير"
           isKid={false}

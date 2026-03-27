@@ -4,6 +4,7 @@ export interface Question {
   id: string;
   text: string;
   answer: string;
+  choices?: string[];
   for: "child" | "adult";
 }
 
