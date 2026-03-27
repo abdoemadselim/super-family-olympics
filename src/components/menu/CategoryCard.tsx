@@ -24,7 +24,7 @@ export function CategoryCard({ category, selected, onSelect }: Props) {
         ${depleted
           ? "opacity-40 cursor-not-allowed bg-white border-sky-100"
           : selected
-            ? "bg-white border-teal-500 shadow-lg ring-4 ring-teal-400/60 scale-105"
+            ? "bg-white border-amber-400 shadow-lg shadow-amber-200 ring-4 ring-amber-300/80 scale-105"
             : "bg-white border-sky-100 hover:shadow-md hover:-translate-y-0.5 hover:border-teal-200"
         }
       `}
