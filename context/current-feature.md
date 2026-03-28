@@ -6,25 +6,26 @@ In Progress
 
 ## Goals
 
-Add a dedicated full-screen leaderboard accessible from the main menu:
+Enhance gameplay sounds to be more fun, childish, and cartoon-like:
 
-- New game phase `"leaderboard"`
-- Full-screen leaderboard showing:
-  - Teams ranked by total score
-  - Per-category score breakdown for each team
-  - Medals for top 3
-  - Visual score bars per category
-- Button on MenuScreen to navigate to leaderboard
-- Back button to return to menu
+- Replace basic oscillator tones with playful cartoon sounds
+- Correct: bouncy celebration with wobble effect
+- Wrong: funny cartoon spring/boing
+- Joker: magical fairy dust sparkle
+- Timer: playful pops instead of harsh ticks, funny alarm on end
+- Category complete: carnival celebration fanfare
+- Whoosh: cartoon slide whistle
+- Game start: exciting cartoon intro
+- Add new sound: button click for UI interactions
 
 ## Notes
 
-- New component: `src/components/screens/LeaderboardScreen.tsx`
-- Add `"leaderboard"` to `GamePhase` type
-- Add `showLeaderboard` / `hideLeaderboard` actions to game store
-- Use existing theme/styling patterns (gradients, rounded cards, Arabic RTL)
+- All sounds remain Web Audio API synthesized (no audio files)
+- Same file: `src/hooks/useSound.ts`
+- Use advanced techniques: frequency modulation, noise, layered oscillators
 
 ## History
 
 <!-- Keep this updated. Earliest to latest -->
 - Sound effects feature (completed)
+- Leaderboard feature (completed)
