@@ -349,6 +349,26 @@ function playGameStart() {
   playNoiseBurst(ctx, 0.05, chordDelay, 0.08);
 }
 
+const CHARACTER_SOUNDS: Record<string, string> = {
+  wizard: "wizard_magic.mp3",
+  warrior: "warrior_sword.mp3",
+  hero: "hero_powerup.mp3",
+  ninja: "ninja_swoosh.mp3",
+  prince: "prince_fanfare.mp3",
+  dragon: "dragon_roar.mp3",
+  robot: "robot_blip.mp3",
+  fox: "fox_yip.mp3",
+};
+
+function playCharacterSound(characterId: string) {
+  const filename = CHARACTER_SOUNDS[characterId];
+  if (filename) {
+    playAudioFile(filename, 0.7);
+  } else {
+    playButtonClick();
+  }
+}
+
 function playButtonClick() {
   // Quick playful "bloop"
   const ctx = new AudioContext();
@@ -386,6 +406,7 @@ export function useSound() {
   const whoosh = useCallback(() => playWhoosh(), []);
   const gameStart = useCallback(() => playGameStart(), []);
   const buttonClick = useCallback(() => playButtonClick(), []);
+  const characterSelect = useCallback((id: string) => playCharacterSound(id), []);
 
   return {
     correct,
@@ -398,5 +419,6 @@ export function useSound() {
     whoosh,
     gameStart,
     buttonClick,
+    characterSelect,
   };
 }

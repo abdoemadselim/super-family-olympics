@@ -69,7 +69,10 @@ export function TeamInput() {
                 <button
                   key={char.id}
                   type="button"
-                  onClick={() => setSelectedCharacter(char.id)}
+                  onClick={() => {
+                    setSelectedCharacter(char.id);
+                    sound.characterSelect(char.id);
+                  }}
                   className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-2.5 px-1 border-2 transition-all active:scale-95"
                   style={{
                     borderColor: isSelected ? "#7c3aed" : "hsl(210 30% 88%)",

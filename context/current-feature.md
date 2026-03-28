@@ -6,23 +6,22 @@ In Progress
 
 ## Goals
 
-Enhance gameplay sounds to be more fun, childish, and cartoon-like:
+Add unique character selection sounds - each character plays a relevant sound when picked:
 
-- Replace basic oscillator tones with playful cartoon sounds
-- Correct: bouncy celebration with wobble effect
-- Wrong: funny cartoon spring/boing
-- Joker: magical fairy dust sparkle
-- Timer: playful pops instead of harsh ticks, funny alarm on end
-- Category complete: carnival celebration fanfare
-- Whoosh: cartoon slide whistle
-- Game start: exciting cartoon intro
-- Add new sound: button click for UI interactions
+- Wizard (🧙): mystical chime/spell cast
+- Warrior (🤺): sword slash/battle strike
+- Hero (🦸): heroic power-up fanfare
+- Ninja (🥷): quick stealth swoosh
+- Prince (🤴): royal trumpet fanfare
+- Dragon (🐉): roaring fire breath
+- Robot (🤖): electronic beep-boop
+- Fox (🦊): playful quick yip
 
 ## Notes
 
-- All sounds remain Web Audio API synthesized (no audio files)
-- Same file: `src/hooks/useSound.ts`
-- Use advanced techniques: frequency modulation, noise, layered oscillators
+- All sounds are Web Audio API synthesized (no audio files)
+- Add `characterSelect(characterId)` to `useSound.ts`
+- Play sound in `TeamInput.tsx` when a character is clicked
 
 ## History
 
