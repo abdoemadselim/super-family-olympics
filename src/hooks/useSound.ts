@@ -124,7 +124,7 @@ function playNoiseBurst(
 
 function playCorrect() {
   // Kids voice: randomly pick between cheering and yay
-  const voices = ["kids_cheering.mp3", "children_yay.mp3", "girl_yeah.wav"];
+  const voices = ["kids_cheering.mp3", "children_yay.mp3"];
   const pick = voices[Math.floor(Math.random() * voices.length)];
   playAudioFile(pick, 0.6);
 
