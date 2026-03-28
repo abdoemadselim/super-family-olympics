@@ -23,7 +23,7 @@ interface GameStore {
   jokerActiveThisRound: boolean;
 
   // Actions
-  addTeam: (childName: string, adultName: string) => void;
+  addTeam: (childName: string, adultName: string, character: string) => void;
   removeTeam: (id: string) => void;
   startGame: () => void;
   resetGame: () => void;
@@ -49,11 +49,12 @@ function initQuestionBank(): QuestionBank {
   return bank;
 }
 
-function createTeam(childName: string, adultName: string): Team {
+function createTeam(childName: string, adultName: string, character: string): Team {
   return {
     id: Math.random().toString(36).slice(2),
     childName,
     adultName,
+    character,
     scores: {
       science: 0,
       math: 0,
@@ -98,8 +99,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
   adultQuestion: null,
   jokerActiveThisRound: false,
 
-  addTeam: (childName, adultName) => {
-    set((s) => ({ teams: [...s.teams, createTeam(childName, adultName)] }));
+  addTeam: (childName, adultName, character) => {
+    set((s) => ({ teams: [...s.teams, createTeam(childName, adultName, character)] }));
   },
 
   removeTeam: (id) => {
@@ -113,6 +114,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   resetGame: () => {
     set({
       phase: "setup",
+      teams: [],
       currentTeamIndex: 0,
       currentCategoryId: null,
       currentRoundIndex: 0,

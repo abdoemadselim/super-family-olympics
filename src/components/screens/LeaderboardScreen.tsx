@@ -2,6 +2,7 @@
 
 import { useGameStore } from "@/store/gameStore";
 import { CATEGORIES } from "@/data/questions";
+import { CHARACTERS } from "@/data/characters";
 import { CategoryId } from "@/types/game";
 
 const SCORE_GRADIENTS = [
@@ -54,7 +55,9 @@ export function LeaderboardScreen() {
 
       {/* Team Cards */}
       <div className="space-y-4">
-        {sorted.map((team, rank) => (
+        {sorted.map((team, rank) => {
+          const char = CHARACTERS.find((c) => c.id === team.character) ?? CHARACTERS[team.originalIndex % CHARACTERS.length];
+          return (
           <div
             key={team.id}
             className="bg-white rounded-3xl shadow-md border border-sky-100 overflow-hidden"
@@ -76,6 +79,7 @@ export function LeaderboardScreen() {
               <span className="text-3xl">
                 {MEDAL[rank] || "🎖️"}
               </span>
+              <span className="text-3xl">{char.emoji}</span>
               <div className="flex-1 min-w-0">
                 <p
                   className="font-black text-lg truncate"
@@ -176,7 +180,8 @@ export function LeaderboardScreen() {
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Back Button */}

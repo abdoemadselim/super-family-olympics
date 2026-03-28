@@ -1,6 +1,7 @@
 "use client";
 
 import { useGameStore } from "@/store/gameStore";
+import { CHARACTERS } from "@/data/characters";
 
 const SCORE_GRADIENTS = [
   "linear-gradient(135deg, hsl(199 89% 48%), hsl(174 60% 45%))",

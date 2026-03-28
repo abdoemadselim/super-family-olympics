@@ -5,19 +5,22 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useGameStore } from "@/store/gameStore";
 import { useSound } from "@/hooks/useSound";
+import { CHARACTERS } from "@/data/characters";
 
 export function TeamInput() {
   const [childName, setChildName] = useState("");
   const [adultName, setAdultName] = useState("");
+  const [selectedCharacter, setSelectedCharacter] = useState(CHARACTERS[0].id);
   const addTeam = useGameStore((s) => s.addTeam);
   const sound = useSound();
 
   const handleAdd = () => {
     if (!childName.trim() || !adultName.trim()) return;
     sound.whoosh();
-    addTeam(childName.trim(), adultName.trim());
+    addTeam(childName.trim(), adultName.trim(), selectedCharacter);
     setChildName("");
     setAdultName("");
+    setSelectedCharacter(CHARACTERS[0].id);
   };
 
   const handleKey = (e: React.KeyboardEvent) => {
@@ -53,6 +56,40 @@ export function TeamInput() {
             dir="rtl"
           />
         </div>
+
+        {/* Character picker */}
+        <div>
+          <label className="flex items-center gap-1.5 text-sm font-bold mb-2" style={{ color: "#7c3aed" }} dir="rtl">
+            <span>🎭</span> اختر شخصيتك
+          </label>
+          <div className="grid grid-cols-4 gap-2">
+            {CHARACTERS.map((char) => {
+              const isSelected = selectedCharacter === char.id;
+              return (
+                <button
+                  key={char.id}
+                  type="button"
+                  onClick={() => setSelectedCharacter(char.id)}
+                  className="flex flex-col items-center justify-center gap-0.5 rounded-2xl py-2.5 px-1 border-2 transition-all active:scale-95"
+                  style={{
+                    borderColor: isSelected ? "#7c3aed" : "hsl(210 30% 88%)",
+                    background: isSelected ? "hsl(262 60% 97%)" : "hsl(210 30% 98%)",
+                    boxShadow: isSelected ? "0 0 0 3px hsl(262 60% 85%)" : undefined,
+                  }}
+                >
+                  <span className="text-2xl leading-none">{char.emoji}</span>
+                  <span
+                    className="text-xs font-bold mt-0.5"
+                    style={{ color: isSelected ? "#7c3aed" : "hsl(240 10% 50%)" }}
+                  >
+                    {char.name}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         <Button
           onClick={handleAdd}
           disabled={!childName.trim() || !adultName.trim()}

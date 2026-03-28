@@ -22,6 +22,7 @@ export interface Team {
   id: string;
   childName: string;
   adultName: string;
+  character: string;
   scores: Record<CategoryId, number>;
   jokerUsed: Record<CategoryId, boolean>;
 }
