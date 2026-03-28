@@ -132,14 +132,21 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 
   selectCategory: (categoryId) => {
-    const { questionBank } = get();
+    const { questionBank, teams } = get();
     const category = CATEGORIES.find((c) => c.id === categoryId);
     const childQ = category?.adultOnly ? null : drawQuestion(questionBank, categoryId, "child");
     const adultQ = drawQuestion(questionBank, categoryId, "adult");
+    const resetTeams = teams.map((t) => ({
+      ...t,
+      scores: { ...t.scores, [categoryId]: 0 },
+      jokerUsed: { ...t.jokerUsed, [categoryId]: false },
+    }));
     set({
       phase: "game",
+      teams: resetTeams,
       currentCategoryId: categoryId,
       currentRoundIndex: 0,
+      currentTeamIndex: 0,
       childQuestion: childQ,
       adultQuestion: adultQ,
       jokerActiveThisRound: false,
