@@ -16,7 +16,7 @@ const SCORE_GRADIENTS = [
 export function CategoryResult() {
   const teams = useGameStore((s) => s.teams);
   const currentCategoryId = useGameStore((s) => s.currentCategoryId);
-  const backToMenu = useGameStore((s) => s.startGame);
+  const finishCategory = useGameStore((s) => s.finishCategory);
   const sound = useSound();
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export function CategoryResult() {
       </div>
 
       <button
-        onClick={backToMenu}
+        onClick={finishCategory}
         className="w-full text-white font-bold py-4 rounded-2xl shadow-md text-lg hover:scale-105 active:scale-95 transition-all"
         style={{
           background: "linear-gradient(135deg, #7c3bed, #0dccf2, #f99e1f)",

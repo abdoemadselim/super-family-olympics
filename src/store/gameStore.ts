@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { CategoryId, GamePhase, Question, Team } from "@/types/game";
 import { CATEGORIES } from "@/data/questions";
 
+const ALL_CATEGORY_IDS: CategoryId[] = CATEGORIES.map((c) => c.id);
+
 interface QuestionBank {
   [categoryId: string]: {
     child: Question[];
@@ -16,6 +18,7 @@ interface GameStore {
   currentCategoryId: CategoryId | null;
   currentRoundIndex: number; // 0-4
   questionBank: QuestionBank;
+  completedCategories: CategoryId[];
 
   // Current round
   childQuestion: Question | null;
@@ -36,6 +39,7 @@ interface GameStore {
   hideLeaderboard: () => void;
   backToSetup: () => void;
   backToMenu: () => void;
+  finishCategory: () => void;
 }
 
 function initQuestionBank(): QuestionBank {
@@ -95,6 +99,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   currentCategoryId: null,
   currentRoundIndex: 0,
   questionBank: initQuestionBank(),
+  completedCategories: [],
   childQuestion: null,
   adultQuestion: null,
   jokerActiveThisRound: false,
@@ -119,6 +124,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       currentCategoryId: null,
       currentRoundIndex: 0,
       questionBank: initQuestionBank(),
+      completedCategories: [],
       childQuestion: null,
       adultQuestion: null,
       jokerActiveThisRound: false,
@@ -231,6 +237,27 @@ export const useGameStore = create<GameStore>((set, get) => ({
     set({
       phase: "menu",
       teams: resetTeams,
+      currentCategoryId: null,
+      currentRoundIndex: 0,
+      childQuestion: null,
+      adultQuestion: null,
+      jokerActiveThisRound: false,
+    });
+  },
+
+  finishCategory: () => {
+    const { currentCategoryId, completedCategories } = get();
+    if (!currentCategoryId) return;
+
+    const updated = completedCategories.includes(currentCategoryId)
+      ? completedCategories
+      : [...completedCategories, currentCategoryId];
+
+    const allDone = ALL_CATEGORY_IDS.every((id) => updated.includes(id));
+
+    set({
+      phase: allDone ? "game-over" : "menu",
+      completedCategories: updated,
       currentCategoryId: null,
       currentRoundIndex: 0,
       childQuestion: null,

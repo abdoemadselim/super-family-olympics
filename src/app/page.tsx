@@ -6,6 +6,7 @@ import { MenuScreen } from "@/components/screens/MenuScreen";
 import { GameScreen } from "@/components/screens/GameScreen";
 import { CategoryResultScreen } from "@/components/screens/CategoryResultScreen";
 import { LeaderboardScreen } from "@/components/screens/LeaderboardScreen";
+import { GameOverScreen } from "@/components/screens/GameOverScreen";
 
 export default function Home() {
   const phase = useGameStore((s) => s.phase);
@@ -18,6 +19,7 @@ export default function Home() {
         {phase === "game" && <GameScreen />}
         {phase === "category-result" && <CategoryResultScreen />}
         {phase === "leaderboard" && <LeaderboardScreen />}
+        {phase === "game-over" && <GameOverScreen />}
       </div>
     </main>
   );
