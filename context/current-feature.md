@@ -27,4 +27,3 @@ Add unique character selection sounds - each character plays a relevant sound wh
 
 <!-- Keep this updated. Earliest to latest -->
 - Sound effects feature (completed)
-- Leaderboard feature (completed)

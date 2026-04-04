@@ -30,7 +30,7 @@ export interface Team {
 
 export type GameMode = "solo" | "team";
 
-export type GamePhase = "mode-select" | "setup" | "menu" | "game" | "category-result" | "leaderboard" | "game-over";
+export type GamePhase = "mode-select" | "setup" | "menu" | "game" | "category-result" | "game-over";
 
 export interface RoundState {
   teamId: string;

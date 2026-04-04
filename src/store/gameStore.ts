@@ -37,8 +37,6 @@ interface GameStore {
   scoreAnswer: (playerType: "child" | "adult", correct: boolean) => void;
   nextRound: () => void;
   getRemainingQuestions: (categoryId: CategoryId) => number;
-  showLeaderboard: () => void;
-  hideLeaderboard: () => void;
   backToSetup: () => void;
   backToMenu: () => void;
   finishCategory: () => void;
@@ -246,14 +244,6 @@ export const useGameStore = create<GameStore>((set, get) => ({
       adultQuestion: adultQ,
       jokerActiveThisRound: false,
     });
-  },
-
-  showLeaderboard: () => {
-    set({ phase: "leaderboard" });
-  },
-
-  hideLeaderboard: () => {
-    set({ phase: "menu" });
   },
 
   backToSetup: () => {
