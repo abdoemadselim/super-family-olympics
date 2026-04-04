@@ -15,6 +15,7 @@ const SCORE_GRADIENTS = [
 
 export function CategoryResult() {
   const teams = useGameStore((s) => s.teams);
+  const gameMode = useGameStore((s) => s.gameMode);
   const currentCategoryId = useGameStore((s) => s.currentCategoryId);
   const finishCategory = useGameStore((s) => s.finishCategory);
   const sound = useSound();
@@ -47,7 +48,7 @@ export function CategoryResult() {
           style={{ background: "linear-gradient(135deg, #7c3bed, #0dccf2, #f99e1f)" }}
         >
           <p className="text-white font-black text-2xl">
-            {winner?.childName} & {winner?.adultName}
+            {gameMode === "solo" ? winner?.childName : `${winner?.childName} & ${winner?.adultName}`}
           </p>
           <p className="mt-1 text-white/80">
             {winner?.catScore} نقطة في هذا المجال
@@ -68,7 +69,7 @@ export function CategoryResult() {
             <span className="text-xl">{["🥇", "🥈", "🥉"][i] || "🎖️"}</span>
             <div className="flex-1 text-right">
               <p className="font-bold" style={{ color: "hsl(240 20% 15%)" }}>
-                {team.childName} & {team.adultName}
+                {gameMode === "solo" ? team.childName : `${team.childName} & ${team.adultName}`}
               </p>
             </div>
             <div

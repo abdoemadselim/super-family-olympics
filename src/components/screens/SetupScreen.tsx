@@ -3,15 +3,17 @@
 import { useGameStore } from "@/store/gameStore";
 import { useSound } from "@/hooks/useSound";
 import { TeamInput } from "@/components/setup/TeamInput";
+import { PlayerInput } from "@/components/setup/PlayerInput";
 import { TeamList } from "@/components/setup/TeamList";
 
 export function SetupScreen() {
   const teams = useGameStore((s) => s.teams);
+  const gameMode = useGameStore((s) => s.gameMode);
   const startGame = useGameStore((s) => s.startGame);
   const resetGame = useGameStore((s) => s.resetGame);
   const sound = useSound();
 
-  const canStart = teams.length >= 2;
+  const canStart = gameMode === "solo" ? teams.length === 2 : teams.length >= 2;
 
   const handleStart = () => {
     sound.gameStart();
@@ -20,20 +22,19 @@ export function SetupScreen() {
 
   return (
     <div className="space-y-6" dir="rtl">
-      {/* Title */}
+      {/* Subtitle */}
       <div className="text-center space-y-2 pt-6">
-        <h1 className="text-5xl font-black text-white drop-shadow-md leading-relaxed">
-          🏆 سوبر أولمبياد العائلة 🎮
-        </h1>
         <p className="text-white/80 text-base">
-          ⭐ أضف أسماء الفرق واختر أعمارهم للبدء! ⭐
+          {gameMode === "solo"
+            ? "⭐ أضف اللاعبين للبدء! ⭐"
+            : "⭐ أضف أسماء الفرق واختر أعمارهم للبدء! ⭐"}
         </p>
       </div>
 
       {/* Input */}
-      <TeamInput />
+      {gameMode === "solo" ? <PlayerInput /> : <TeamInput />}
 
-      {/* Teams */}
+      {/* Teams/Players */}
       <TeamList />
 
       {/* Actions */}
@@ -58,7 +59,6 @@ export function SetupScreen() {
             إعادة ضبط
           </button>
         )}
-
       </div>
     </div>
   );

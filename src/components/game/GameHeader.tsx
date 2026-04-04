@@ -19,6 +19,7 @@ export function GameHeader() {
   const currentRoundIndex = useGameStore((s) => s.currentRoundIndex);
   const currentCategoryId = useGameStore((s) => s.currentCategoryId);
 
+  const gameMode = useGameStore((s) => s.gameMode);
   const resetGame = useGameStore((s) => s.resetGame);
   const backToMenu = useGameStore((s) => s.backToMenu);
   const currentTeam = teams[currentTeamIndex];

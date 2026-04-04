@@ -14,6 +14,9 @@ export function GameRound() {
   const jokerActiveThisRound = useGameStore((s) => s.jokerActiveThisRound);
   const scoreAnswer = useGameStore((s) => s.scoreAnswer);
   const nextRound = useGameStore((s) => s.nextRound);
+  const gameMode = useGameStore((s) => s.gameMode);
+  const teams = useGameStore((s) => s.teams);
+  const currentTeamIndex = useGameStore((s) => s.currentTeamIndex);
   const sound = useSound();
 
   const [childScored, setChildScored] = useState(false);
@@ -36,7 +39,12 @@ export function GameRound() {
     nextRound();
   };
 
-  const canProceed = (!childQuestion || childScored) && adultScored;
+  const canProceed = gameMode === "solo"
+    ? (!childQuestion || childScored)
+    : (!childQuestion || childScored) && adultScored;
+
+  const currentTeam = teams[currentTeamIndex];
+  const soloLabel = currentTeam?.playerType === "child" ? "🧒 سؤالك" : "👨 سؤالك";
 
   return (
     <div className="space-y-4">
@@ -47,8 +55,8 @@ export function GameRound() {
         <QuestionCard
           key={childQuestion.id}
           question={childQuestion}
-          label="🧒 سؤال البطل الصغير"
-          isKid={true}
+          label={gameMode === "solo" ? soloLabel : "🧒 سؤال البطل الصغير"}
+          isKid={gameMode === "solo" ? currentTeam?.playerType === "child" : true}
           onScore={handleChildScore}
           jokerMultiplier={jokerActiveThisRound}
           scored={childScored}
@@ -81,7 +89,9 @@ export function GameRound() {
         dir="rtl"
       >
         <ArrowLeft className="w-5 h-5" />
-        {canProceed ? "الفريق التالي / الجولة التالية" : childQuestion ? "أجب على كلا السؤالين أولاً" : "أجب على السؤال أولاً"}
+        {canProceed
+          ? (gameMode === "solo" ? "اللاعب التالي / الجولة التالية" : "الفريق التالي / الجولة التالية")
+          : (gameMode === "solo" ? "أجب على السؤال أولاً" : (childQuestion ? "أجب على كلا السؤالين أولاً" : "أجب على السؤال أولاً"))}
       </button>
     </div>
   );

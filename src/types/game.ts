@@ -23,11 +23,14 @@ export interface Team {
   childName: string;
   adultName: string;
   character: string;
+  playerType?: "child" | "adult";
   scores: Record<CategoryId, number>;
   jokerUsed: Record<CategoryId, boolean>;
 }
 
-export type GamePhase = "setup" | "menu" | "game" | "category-result" | "leaderboard" | "game-over";
+export type GameMode = "solo" | "team";
+
+export type GamePhase = "mode-select" | "setup" | "menu" | "game" | "category-result" | "leaderboard" | "game-over";
 
 export interface RoundState {
   teamId: string;

@@ -13,6 +13,7 @@ const SCORE_GRADIENTS = [
 
 export function ScoreBar() {
   const teams = useGameStore((s) => s.teams);
+  const gameMode = useGameStore((s) => s.gameMode);
 
   const sorted = [...teams]
     .map((t, originalIndex) => ({
@@ -35,7 +36,7 @@ export function ScoreBar() {
             <span className="text-xl">{MEDAL[i] || "🎖️"}</span>
             <div className="flex-1 min-w-0">
               <div className="font-bold text-sm truncate" style={{ color: "hsl(240 20% 15%)" }}>
-                {team.childName} & {team.adultName}
+                {gameMode === "solo" ? team.childName : `${team.childName} & ${team.adultName}`}
               </div>
             </div>
             <div

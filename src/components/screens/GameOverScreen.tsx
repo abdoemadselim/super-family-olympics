@@ -31,6 +31,7 @@ const MEDAL = ["🥇", "🥈", "🥉"];
 
 export function GameOverScreen() {
   const teams = useGameStore((s) => s.teams);
+  const gameMode = useGameStore((s) => s.gameMode);
   const resetGame = useGameStore((s) => s.resetGame);
   const sound = useSound();
 
@@ -63,7 +64,7 @@ export function GameOverScreen() {
         >
           <p className="text-white/80 text-sm font-bold mb-1">🏆 البطل العام</p>
           <p className="text-white font-black text-2xl">
-            {winner?.childName} & {winner?.adultName}
+            {gameMode === "solo" ? winner?.childName : `${winner?.childName} & ${winner?.adultName}`}
           </p>
           <p className="mt-1 text-white/80 font-bold">
             {winner?.total} نقطة
@@ -102,7 +103,7 @@ export function GameOverScreen() {
                     className="font-black text-lg truncate"
                     style={{ color: rank < 3 ? "white" : "hsl(240 20% 15%)" }}
                   >
-                    {team.childName} & {team.adultName}
+                    {gameMode === "solo" ? team.childName : `${team.childName} & ${team.adultName}`}
                   </p>
                   <p
                     className="text-sm font-medium"

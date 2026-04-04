@@ -6,6 +6,7 @@ import { CategoryGrid } from "@/components/menu/CategoryGrid";
 import { ArrowRight } from "lucide-react";
 
 export function MenuScreen() {
+  const gameMode = useGameStore((s) => s.gameMode);
   const resetGame = useGameStore((s) => s.resetGame);
   const backToSetup = useGameStore((s) => s.backToSetup);
   return (
@@ -17,7 +18,7 @@ export function MenuScreen() {
           className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white/20 text-white text-base font-bold transition-all hover:scale-105 active:scale-95 hover:bg-white/30 backdrop-blur-sm"
         >
           <ArrowRight className="w-5 h-5" />
-          إعداد الفرق
+          {gameMode === "solo" ? "إعداد اللاعبين" : "إعداد الفرق"}
         </button>
       </div>
 

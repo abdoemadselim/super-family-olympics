@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CategoryId, GamePhase, Question, Team } from "@/types/game";
+import { CategoryId, GameMode, GamePhase, Question, Team } from "@/types/game";
 import { CATEGORIES } from "@/data/questions";
 
 const ALL_CATEGORY_IDS: CategoryId[] = CATEGORIES.map((c) => c.id);
@@ -12,6 +12,7 @@ interface QuestionBank {
 }
 
 interface GameStore {
+  gameMode: GameMode;
   phase: GamePhase;
   teams: Team[];
   currentTeamIndex: number;
@@ -26,7 +27,8 @@ interface GameStore {
   jokerActiveThisRound: boolean;
 
   // Actions
-  addTeam: (childName: string, adultName: string, character: string) => void;
+  setGameMode: (mode: GameMode) => void;
+  addTeam: (childName: string, adultName: string, character: string, playerType?: "child" | "adult") => void;
   removeTeam: (id: string) => void;
   startGame: () => void;
   resetGame: () => void;
@@ -53,12 +55,13 @@ function initQuestionBank(): QuestionBank {
   return bank;
 }
 
-function createTeam(childName: string, adultName: string, character: string): Team {
+function createTeam(childName: string, adultName: string, character: string, playerType?: "child" | "adult"): Team {
   return {
     id: Math.random().toString(36).slice(2),
     childName,
     adultName,
     character,
+    playerType,
     scores: {
       science: 0,
       math: 0,
@@ -93,7 +96,8 @@ function drawQuestion(bank: QuestionBank, categoryId: string, playerType: "child
 }
 
 export const useGameStore = create<GameStore>((set, get) => ({
-  phase: "setup",
+  gameMode: "team",
+  phase: "mode-select",
   teams: [],
   currentTeamIndex: 0,
   currentCategoryId: null,
@@ -104,8 +108,12 @@ export const useGameStore = create<GameStore>((set, get) => ({
   adultQuestion: null,
   jokerActiveThisRound: false,
 
-  addTeam: (childName, adultName, character) => {
-    set((s) => ({ teams: [...s.teams, createTeam(childName, adultName, character)] }));
+  setGameMode: (mode) => {
+    set({ gameMode: mode, phase: "setup" });
+  },
+
+  addTeam: (childName, adultName, character, playerType?) => {
+    set((s) => ({ teams: [...s.teams, createTeam(childName, adultName, character, playerType)] }));
   },
 
   removeTeam: (id) => {
@@ -118,7 +126,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   resetGame: () => {
     set({
-      phase: "setup",
+      gameMode: "team",
+      phase: "mode-select",
       teams: [],
       currentTeamIndex: 0,
       currentCategoryId: null,
@@ -132,15 +141,26 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 
   selectCategory: (categoryId) => {
-    const { questionBank, teams } = get();
+    const { questionBank, teams, gameMode } = get();
     const category = CATEGORIES.find((c) => c.id === categoryId);
-    const childQ = category?.adultOnly ? null : drawQuestion(questionBank, categoryId, "child");
-    const adultQ = drawQuestion(questionBank, categoryId, "adult");
     const resetTeams = teams.map((t) => ({
       ...t,
       scores: { ...t.scores, [categoryId]: 0 },
       jokerUsed: { ...t.jokerUsed, [categoryId]: false },
     }));
+
+    let childQ: Question | null;
+    let adultQ: Question | null;
+
+    if (gameMode === "solo") {
+      const firstPlayer = resetTeams[0];
+      childQ = drawQuestion(questionBank, categoryId, firstPlayer.playerType!);
+      adultQ = null;
+    } else {
+      childQ = category?.adultOnly ? null : drawQuestion(questionBank, categoryId, "child");
+      adultQ = drawQuestion(questionBank, categoryId, "adult");
+    }
+
     set({
       phase: "game",
       teams: resetTeams,
@@ -186,12 +206,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
   },
 
   nextRound: () => {
-    const { currentRoundIndex, currentTeamIndex, teams, currentCategoryId, questionBank } = get();
+    const { currentRoundIndex, currentTeamIndex, teams, currentCategoryId, questionBank, gameMode } = get();
     const isLastTeam = currentTeamIndex === teams.length - 1;
     const isLastRound = currentRoundIndex === 4;
 
     if (isLastTeam && isLastRound) {
-      // All 5 rounds done for all teams in this category
       set({ phase: "category-result" });
       return;
     }
@@ -207,9 +226,18 @@ export const useGameStore = create<GameStore>((set, get) => ({
       nextRoundIndex = currentRoundIndex;
     }
 
-    const category = CATEGORIES.find((c) => c.id === currentCategoryId);
-    const childQ = category?.adultOnly ? null : drawQuestion(questionBank!, currentCategoryId!, "child");
-    const adultQ = drawQuestion(questionBank!, currentCategoryId!, "adult");
+    let childQ: Question | null;
+    let adultQ: Question | null;
+
+    if (gameMode === "solo") {
+      const nextPlayer = teams[nextTeamIndex];
+      childQ = drawQuestion(questionBank!, currentCategoryId!, nextPlayer.playerType!);
+      adultQ = null;
+    } else {
+      const category = CATEGORIES.find((c) => c.id === currentCategoryId);
+      childQ = category?.adultOnly ? null : drawQuestion(questionBank!, currentCategoryId!, "child");
+      adultQ = drawQuestion(questionBank!, currentCategoryId!, "adult");
+    }
 
     set({
       currentTeamIndex: nextTeamIndex,

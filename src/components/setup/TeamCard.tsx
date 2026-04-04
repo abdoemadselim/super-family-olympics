@@ -12,6 +12,7 @@ interface Props {
 
 export function TeamCard({ team, index }: Props) {
   const removeTeam = useGameStore((s) => s.removeTeam);
+  const gameMode = useGameStore((s) => s.gameMode);
   const character = CHARACTERS.find((c) => c.id === team.character) ?? CHARACTERS[index % CHARACTERS.length];
 
   return (
@@ -29,18 +30,38 @@ export function TeamCard({ team, index }: Props) {
 
       {/* Names */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1.5">
-          <User className="w-3.5 h-3.5 shrink-0" style={{ color: "hsl(0 80% 60%)" }} />
-          <span className="font-bold text-base truncate" style={{ color: "hsl(240 20% 15%)" }}>
-            {team.childName}
-          </span>
-        </div>
-        <div className="flex items-center gap-1.5 mt-0.5">
-          <Users className="w-3.5 h-3.5 shrink-0" style={{ color: "hsl(210 80% 55%)" }} />
-          <span className="text-sm truncate" style={{ color: "hsl(240 10% 40%)" }}>
-            {team.adultName}
-          </span>
-        </div>
+        {gameMode === "solo" ? (
+          <div className="flex items-center gap-1.5">
+            <User className="w-3.5 h-3.5 shrink-0" style={{ color: "hsl(262 60% 55%)" }} />
+            <span className="font-bold text-base truncate" style={{ color: "hsl(240 20% 15%)" }}>
+              {team.childName}
+            </span>
+            <span
+              className="text-xs px-2 py-0.5 rounded-full font-bold shrink-0"
+              style={{
+                background: team.playerType === "child" ? "hsl(340 60% 95%)" : "hsl(190 60% 95%)",
+                color: team.playerType === "child" ? "#e74c8b" : "#0dccf2",
+              }}
+            >
+              {team.playerType === "child" ? "🧒 طفل" : "👨 كبير"}
+            </span>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-center gap-1.5">
+              <User className="w-3.5 h-3.5 shrink-0" style={{ color: "hsl(0 80% 60%)" }} />
+              <span className="font-bold text-base truncate" style={{ color: "hsl(240 20% 15%)" }}>
+                {team.childName}
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <Users className="w-3.5 h-3.5 shrink-0" style={{ color: "hsl(210 80% 55%)" }} />
+              <span className="text-sm truncate" style={{ color: "hsl(240 10% 40%)" }}>
+                {team.adultName}
+              </span>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Delete */}

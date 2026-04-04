@@ -1,6 +1,7 @@
 "use client";
 
 import { useGameStore } from "@/store/gameStore";
+import { ModeSelectScreen } from "@/components/screens/ModeSelectScreen";
 import { SetupScreen } from "@/components/screens/SetupScreen";
 import { MenuScreen } from "@/components/screens/MenuScreen";
 import { GameScreen } from "@/components/screens/GameScreen";
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <div className="max-w-2xl mx-auto px-4 py-8">
+        {phase === "mode-select" && <ModeSelectScreen />}
         {phase === "setup" && <SetupScreen />}
         {phase === "menu" && <MenuScreen />}
         {phase === "game" && <GameScreen />}

@@ -29,6 +29,7 @@ const CATEGORY_COLORS: Record<CategoryId, string> = {
 
 export function LeaderboardScreen() {
   const teams = useGameStore((s) => s.teams);
+  const gameMode = useGameStore((s) => s.gameMode);
   const hideLeaderboard = useGameStore((s) => s.hideLeaderboard);
 
   const sorted = [...teams]
@@ -87,7 +88,7 @@ export function LeaderboardScreen() {
                     color: rank < 3 ? "white" : "hsl(240 20% 15%)",
                   }}
                 >
-                  {team.childName} & {team.adultName}
+                  {gameMode === "solo" ? team.childName : `${team.childName} & ${team.adultName}`}
                 </p>
                 <p
                   className="text-sm font-medium"
