@@ -60,7 +60,7 @@ export function TeamInput() {
         {/* Character picker */}
         <div>
           <label className="flex items-center gap-1.5 text-sm font-bold mb-2" style={{ color: "#7c3aed" }} dir="rtl">
-            <span>🎭</span> اختر شخصيتك
+            <span>🎭</span> اختر شخصية الفريق 
           </label>
           <div className="grid grid-cols-4 gap-2">
             {CHARACTERS.map((char) => {
