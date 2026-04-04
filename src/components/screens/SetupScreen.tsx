@@ -27,7 +27,7 @@ export function SetupScreen() {
         <p className="text-white/80 text-base">
           {gameMode === "solo"
             ? "⭐ أضف اللاعبين للبدء! ⭐"
-            : "⭐ أضف أسماء الفرق واختر أعمارهم للبدء! ⭐"}
+            : "⭐ أضف أسماء الفرق للبدء! ⭐"}
         </p>
       </div>
 
