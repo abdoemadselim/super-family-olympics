@@ -9,6 +9,15 @@ import { CategoryCard } from "./CategoryCard";
 export function CategoryGrid() {
   const [selectedId, setSelectedId] = useState<CategoryId | null>(null);
   const selectCategory = useGameStore((s) => s.selectCategory);
+  const gameMode = useGameStore((s) => s.gameMode);
+  const teams = useGameStore((s) => s.teams);
+
+  const hideAdultOnly =
+    gameMode === "solo" && teams.some((t) => t.playerType === "child");
+
+  const visibleCategories = hideAdultOnly
+    ? CATEGORIES.filter((cat) => !cat.adultOnly)
+    : CATEGORIES;
 
   const handleStart = () => {
     if (selectedId) {
@@ -22,7 +31,7 @@ export function CategoryGrid() {
         اختر مجال التحدي
       </h3>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        {CATEGORIES.map((cat) => (
+        {visibleCategories.map((cat) => (
           <CategoryCard
             key={cat.id}
             category={cat}
